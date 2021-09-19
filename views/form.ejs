@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <h1>Form Pengisian Data Matkul</h1>
+    <form>
+        <input name="nama" id="nama" type="text" placeholder="Nama Matkul">
+        <input name="kode" id="kode" type="text" placeholder="Kode Matkul">
+        <input name="dosen" id="dosen" type="text" placeholder="Dosen Matkul">
+        <button type="submit">Submit</button>
+        <p id="submitted"></p>
+    </form>
+</body>
+<script>
+    const form = document.querySelector('form');
+    const submitted = document.getElementById('submitted');
+
+    form.addEventListener("submit", (event) => {
+        const nama = document.getElementById("nama").value;
+        const kode = document.getElementById("kode").value;
+        const dosen = document.getElementById("dosen").value;
+
+        fetch("http://localhost:3000/postdata", {
+            method: "post",
+            headers: {
+                'Content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                nama : nama,
+                kode : kode,
+                dosen : dosen
+            })
+        })
+        .then(response => response.json())
+        .then((data) => {
+            submitted.innerHTML = data.message;
+        })
+        event.preventDefault() 
+    })
+</script>
+</html>

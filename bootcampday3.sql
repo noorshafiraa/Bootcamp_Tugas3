@@ -1,0 +1,1 @@
+SELECT * FROM bootcampday3.matkul;
